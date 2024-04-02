@@ -1,0 +1,186 @@
+/* Normalize default CSS rules between different browsers */
+@import url(assets/normalize.css);
+
+/* Set up Open Sans font, later replacing the default font */
+/* see: https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face */
+@font-face {
+  font-display: swap;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('assets/fonts/open-sans-v40-latin_latin-ext-regular.woff2') format('woff2');
+}
+@font-face {
+  font-display: swap;
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('assets/fonts/open-sans-v40-latin_latin-ext-700.woff2') format('woff2');
+}
+
+:root {
+  /* Define color scheme with CSS variables */
+  /* see: https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties */
+  --bg: #fbf7f7;
+  --fg: #3b2626;
+  --fg-light: #bca4a4;
+  --highlight-light: #eed9d9;
+  --highlight-dark: #e3c6c6;
+  --highlight-gradient: linear-gradient(0deg, var(--highlight-light), var(--highlight-dark));
+  /* Use Open Sans as the general font */
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.5;
+}
+
+/* Basic styling */
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+h1, h2, h3, h4, h5 {
+  font-weight: normal;
+}
+a {
+  color: var(--fg);
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+/* Pages (selection and recipe) fill the entire viewport */
+.page {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--highlight-dark) var(--bg);
+}
+
+/* Center header content and leave some space around */
+header, footer {
+  text-align: center;
+  padding: 2em 1em 0 1em;
+}
+/* Cap maximum width, and center content on wide viewports, e.g. desktop */
+header, main, footer, .content {
+  margin: 0 -50% 0 50%; /* +50% viewport */
+  translate: -50% 0; /* -50% element */
+  max-width: 920px;
+}
+
+/* Leave some space around main content */
+main {
+  padding: 0 1em 1em 1em;
+}
+
+/* Style filter input used by ingredient selection */
+input, button {
+  padding: 0.5em 1em;
+  border: 1px solid var(--highlight-dark);
+  background-color: #fff;
+  line-height: 1.5;
+}
+button {
+  cursor: pointer;
+}
+::placeholder {
+  color: var(--fg-light);
+}
+.buttons {
+  /* Use flexbox to align text input and clear button on same line */
+  /* see: https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox */
+  display: flex;
+  flex-flow: row;
+  align-items: stretch;
+  /* And leave some space */
+  margin-bottom: 1em;
+}
+#filter-input {
+  flex: 1; /* use as much space as available */
+  width: auto;
+  background: #fff;
+  border-radius: 5px 0 0 5px;
+  outline-color: var(--highlight-dark);
+}
+#filter-clear {
+  font-weight: bold;
+  border-radius: 0 5px 5px 0;
+  margin-left: -1px;
+  background: #fff url(assets/reset.svg) center/16px no-repeat;
+}
+
+/* Style list of ingredients */
+.ingredientsList {
+  /* Use flexbox again, but allow wrapping to multiple rows */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  gap: 0.5em;
+}
+.ingredientsList .ingredient {
+  flex: 1; /* fill entire row */
+  text-align: center;
+  background: var(--highlight-gradient);
+  padding: 0.25em 0.5em;
+  border: 1px solid var(--highlight-dark);
+  border-radius: 0.5em;
+  white-space: nowrap; /* suppress line break within */
+}
+
+/* Style list of recipes */
+#recipes-list .recipe {
+  display: block;
+  padding: 0.5em 1em;
+  border: 1px solid var(--highlight-dark);
+  border-radius: 0.5em;
+  margin-bottom: 0.5em;
+  background: var(--bg);
+  color: var(--fg);
+  text-decoration: none;
+  cursor: pointer;
+  /* Background gradient adapts to number of ingredients available */
+  /* Introduce another CSS variable that is updated via JavaScript */
+  --fraction: 0;
+  background: linear-gradient(-105deg, var(--highlight-light) 0% calc(var(--fraction) * 100%), var(--bg) calc(var(--fraction) * 100%) 100%);
+  /* see: https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient */
+}
+#recipes-list .recipe::first-line {
+  font-weight: bold;
+}
+
+.info {
+  text-align: center;
+  padding: 0.5em;
+}
+
+/* Style recipe window */
+#recipe-view {
+  /* Do not display by default */
+  display: none;
+  background: var(--bg);
+}
+@keyframes appear {
+  /* see: https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes */
+  from { opacity: 0.0; }
+  to { opacity: 1.0; }
+}
+#recipe-view .content {
+  /* Leave some space around */
+  padding: 1em;
+  /* Animate slightly when becoming visible */
+  animation: appear 0.25s ease-out;
+}
+#recipe-view h1 {
+  /* Just wide enough to not overlap with the close button */
+  margin: 0 2.5em 0 0;
+}
+#recipe-view .close {
+  /* Position close button in top right corner, fixed to the viewport */
+  position: fixed;
+  z-index: 1;
+  top: 1.1em; right: 1em;
+}

@@ -1,0 +1,33 @@
+{
+  "name": "WhatTheFridge",
+  "description": "Wähle vorhandene Zutaten. Erhalte dazu passende Rezepte.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#d5a2a2",
+  "background_color": "#fbf7f7",
+  "icons": [
+    {
+      "src": "assets/logo192-maskable.png",
+      "type": "image/png",
+      "sizes": "192x192 96x96",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/logo512-maskable.png",
+      "type": "image/png",
+      "sizes": "512x512 256x256 128x128",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192 96x96"
+    },
+    {
+      "src": "assets/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512 256x256 128x128"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <title>WhatTheFridge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#d5a2a2"/>
+  <meta name="description" content="Wähle vorhandene Zutaten. Erhalte dazu passende Rezepte."/>
+  <link rel="preload" href="index.css" as="style"/>
+  <link rel="stylesheet" href="index.css"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="icon" href="assets/logo192.png"/>
+  <script type="module" src="index.js" async></script>
+</head>
+<body>
+
+<div id="recipe-select" class="page">
+
+  <header>
+    <img src="assets/logo192.png" height="96" width="96" alt="WhatTheFridge" />
+    <p>Wähle vorhandene Zutaten.<br />Erhalte dazu passende Rezepte.</p>
+  </header>
+
+  <main id="main">
+
+    <h2>Mögliche Zutaten</h2>
+    <div class="buttons">
+      <input id="filter-input" type="text" placeholder="Filtern nach..." />
+      <button id="filter-clear"></button>
+    </div>
+    <div id="no-possible-ingredients" class="info" style="display: none">Keine entsprechenden Zutaten.</div>
+    <div id="possible-ingredients" class="ingredientsList"></div>
+
+    <h2>Ausgewählte Zutaten</h2>
+    <div id="no-selected-ingredients" class="info">Bitte wähle eine Zutat.</div>
+    <div id="selected-ingredients" class="ingredientsList"></div>
+
+    <h2>Passende Rezepte</h2>
+    <div id="recipes-list"></div>
+
+  </main>
+
+</div>
+
+<div id="recipe-view" class="page">
+  <a href="#" class="close"><img src="assets/close.svg" width="50" height="50" /></a>
+  <div class="content"></div>
+</div>
+
+</body>
+</html>
